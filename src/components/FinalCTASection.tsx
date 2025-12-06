@@ -34,10 +34,10 @@ const FinalCTASection = () => {
             <Button
               variant="ctaWhatsApp"
               size="xl"
-              className="group"
+              className="group !whitespace-normal !h-auto py-5 px-6 text-center leading-tight w-full md:w-auto flex flex-col md:flex-row items-center justify-center gap-3"
             >
-              <MessageCircle className="group-hover:scale-110 transition-transform" />
-              Quiero entrar a la comunidad y empezar a reconectar
+              <MessageCircle className="group-hover:scale-110 transition-transform flex-shrink-0 size-6" />
+              <span className="break-words max-w-[90%] block">Quiero entrar a la comunidad y empezar a reconectar</span>
             </Button>
           </RegistrationModal>
 

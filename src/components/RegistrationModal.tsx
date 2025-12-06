@@ -7,6 +7,7 @@ import { Loader2, MessageCircle } from "lucide-react";
 import PhoneInput, { parsePhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { supabase } from "@/lib/supabase";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -38,6 +39,9 @@ const formSchema = z.object({
     whatsapp: z.string().min(10, {
         message: "Por favor ingresa un número de WhatsApp válido.",
     }),
+    terms: z.boolean().default(true).refine((val) => val === true, {
+        message: "Debes aceptar los términos y condiciones.",
+    }),
 });
 
 interface RegistrationModalProps {
@@ -55,6 +59,7 @@ export function RegistrationModal({ children }: RegistrationModalProps) {
             fullName: "",
             email: "",
             whatsapp: "",
+            terms: true,
         },
     });
 
@@ -90,38 +95,37 @@ export function RegistrationModal({ children }: RegistrationModalProps) {
                 throw error;
             }
 
-            // 2. Send Email Notification (FormSubmit)
-            try {
-                await fetch("https://formsubmit.co/ajax/elizabethvilla1306@gmail.com", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        _subject: "Nuevo Registro - Conecta sin Pantallas",
-                        nombre: values.fullName,
-                        email: values.email,
-                        whatsapp: values.whatsapp,
-                        pais: country,
-                        _template: "table"
-                    })
-                });
-            } catch (err) {
-                console.error("Email system error:", err);
-            }
+            // 2. Send Email Notification (Non-blocking / Fire-and-forget)
+            // We do NOT await this to prevent blocking the user flow.
+            fetch("https://formsubmit.co/ajax/elizabethvilla1306@gmail.com", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: "Nuevo Registro - Conecta sin Pantallas",
+                    nombre: values.fullName,
+                    email: values.email,
+                    whatsapp: values.whatsapp,
+                    pais: country,
+                    _template: "table"
+                })
+            }).catch(err => console.error("Email system error (background):", err));
 
-            // 3. Success Actions
+            // 3. Success Actions (Immediate)
             setOpen(false);
 
             toast({
                 title: "¡Registro exitoso!",
                 description: "Redirigiendo al grupo de WhatsApp...",
+                duration: 2000,
             });
 
+            // Redirect almost immediately
             setTimeout(() => {
-                window.open("https://chat.whatsapp.com/J5vFmu3QD6zDTpcMbfKhY3", "_blank");
-            }, 1000);
+                window.location.href = "https://chat.whatsapp.com/J5vFmu3QD6zDTpcMbfKhY3";
+            }, 500);
 
         } catch (error: any) {
             console.error('Error registering:', error);
@@ -130,8 +134,15 @@ export function RegistrationModal({ children }: RegistrationModalProps) {
                 title: "Error en el registro",
                 description: `Error: ${error.message || "Verifica tu conexión"}`,
             });
-        } finally {
+            // Stop loading only on error. On success, we redirect, so keeping it true might be safer strictly speaking, 
+            // but setting false here ensures if redirect fails user isn't stuck.
             setIsLoading(false);
+        } finally {
+            // In success case, we are redirecting, so mostly fine.
+            // But if we want to be safe in case redirect is slow:
+            if (!open) {
+                setIsLoading(false);
+            }
         }
     }
 
