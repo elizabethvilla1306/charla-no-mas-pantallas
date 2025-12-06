@@ -151,7 +151,7 @@ export function RegistrationModal({ children }: RegistrationModalProps) {
             <DialogTrigger asChild>
                 {children}
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="text-2xl font-bold text-center text-teal-dark">
                         Asegura tu cupo gratuito
@@ -210,6 +210,28 @@ export function RegistrationModal({ children }: RegistrationModalProps) {
                                         />
                                     </FormControl>
                                     <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Terms Checkbox */}
+                        <FormField
+                            control={form.control}
+                            name="terms"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <div className="space-y-1 leading-none">
+                                        <FormLabel className="text-sm font-normal text-start block">
+                                            Acepto los términos y condiciones. Entiendo que al enviar este formulario recibiré información de metamente.com.co cuando sea relevante.
+                                        </FormLabel>
+                                        <FormMessage />
+                                    </div>
                                 </FormItem>
                             )}
                         />
