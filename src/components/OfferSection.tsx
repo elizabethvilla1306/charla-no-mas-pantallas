@@ -12,7 +12,7 @@ const includes = [
 
 const OfferSection = () => {
   return (
-    <section className="py-20 md:py-28 bg-secondary/20 relative">
+    <section className="py-12 md:py-28 bg-secondary/20 relative">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-white to-transparent pointer-events-none" />
       <div className="container">

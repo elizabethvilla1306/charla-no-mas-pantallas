@@ -35,14 +35,14 @@ const HeroSection = () => {
           </div>
 
           {/* Main headline */}
-          <h1 className="animate-fade-up opacity-0 delay-100 font-display text-4xl md:text-6xl lg:text-7xl font-semibold text-foreground leading-[1.1] mb-6 text-balance max-w-6xl mx-auto">
+          <h1 className="animate-fade-up opacity-0 delay-100 font-display text-4xl md:text-6xl lg:text-7xl font-semibold text-foreground leading-tight md:leading-[1.1] mb-6 text-balance max-w-6xl mx-auto px-4 md:px-0">
             ¿Sientes que tu hijo vive <br className="hidden md:block" />
             <span className="text-primary font-bold whitespace-nowrap"> atrapado en la pantalla?</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="animate-fade-up opacity-0 delay-200 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 text-balance font-body">
-            No es tu culpa… y sí existe una forma real de volver a conectarlo contigo. <br />
+          <p className="animate-fade-up opacity-0 delay-200 text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 md:mb-12 text-balance font-body px-4 md:px-0">
+            No es tu culpa… y sí existe una forma real de volver a conectarlo contigo. <br className="hidden md:block" />
             Accede a una charla gratuita, donde aprenderás estrategias profesionales para acompañar a tu hijo y recuperar la armonía en casa
             <strong className="text-foreground"> sin gritos, sin peleas y sin castigos.</strong>
           </p>
@@ -76,10 +76,10 @@ const HeroSection = () => {
               <Button
                 variant="ctaWhatsApp"
                 size="xl"
-                className="group animate-bounce"
+                className="group animate-bounce !whitespace-normal !h-auto py-5 px-6 text-center leading-tight w-full md:w-auto inline-flex flex-col md:flex-row items-center justify-center gap-3"
               >
-                <MessageCircle className="group-hover:scale-110 transition-transform" />
-                Quiero unirme al grupo de WhatsApp
+                <MessageCircle className="group-hover:scale-110 transition-transform flex-shrink-0 size-6" />
+                <span className="break-words max-w-[90%] block">Quiero unirme al grupo de WhatsApp</span>
               </Button>
             </RegistrationModal>
             <p className="text-sm text-muted-foreground mt-3 font-body">
