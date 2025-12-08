@@ -37,7 +37,7 @@ const HeroSection = () => {
           {/* Main headline */}
           <h1 className="animate-fade-up opacity-0 delay-100 font-display text-4xl md:text-6xl lg:text-7xl font-semibold text-foreground leading-tight md:leading-[1.1] mb-6 text-balance max-w-6xl mx-auto px-4 md:px-0">
             ¿Sientes que tu hijo vive <br className="hidden md:block" />
-            <span className="text-primary font-bold whitespace-nowrap"> atrapado en la pantalla?</span>
+            <span className="text-primary font-bold"> atrapado en la pantalla?</span>
           </h1>
 
           {/* Subheadline */}
